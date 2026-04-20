@@ -1,5 +1,5 @@
 import unittest
-from src.AiClient import AIClient
+from src.AIClient import AIClient
 
 
 class TestAIClient(unittest.TestCase):
@@ -25,7 +25,6 @@ class TestAIClient(unittest.TestCase):
         _, modelo = self.ai.iniciar()
 
         self.assertTrue(len(modelo) > 0)
-
 
 if __name__ == "__main__":
     unittest.main()

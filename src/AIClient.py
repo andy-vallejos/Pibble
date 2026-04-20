@@ -34,7 +34,7 @@ class AIClient:
 
         return self._cliente, self._modelo
 
-    def generar(self, prompt):
+    def generar(self, prompt:str):
         if not self._iniciado:
             self.iniciar()
 
