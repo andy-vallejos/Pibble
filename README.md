@@ -28,3 +28,11 @@ Recuerden instalar dependencias
     pip install google-genai
     pip install python-dotenv
 ```
+
+## Ejecutar pruebas
+
+Para ejecutar las pruebas deben estar en el repositorio raiz y ejecutar lo siguiente:
+
+```
+     python -m unittest tests/TestAI.py
+```
