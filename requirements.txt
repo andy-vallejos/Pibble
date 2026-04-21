@@ -1,2 +1,4 @@
-google-genai==1.73.1
-python-dotenv==1.2.2
+google-genai # SDK oficial de Google
+python-dotenv # manejo de variables de entorno
+pillow  # procesamiento de imagenes
+python-magic # identificador de contenido
