@@ -1,0 +1,4 @@
+google-genai # SDK oficial de Google
+python-dotenv # manejo de variables de entorno
+pillow  # procesamiento de imagenes
+python-magic # identificador de contenido

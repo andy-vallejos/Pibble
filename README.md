@@ -1,2 +1,40 @@
 # libreria-python
-Libreria para la materia de Metodos y tecnicas de programación.
+
+## Instalacion
+
+git clone <https://github.com/andy-vallejos/libreria-python.git>
+
+## Cambiar rama
+
+Recuerden cambiar su rama de trabajo
+
+```
+    git switch -c "aqui-ponen-el-nombre-de-su-rama"
+```
+
+## Entorno virtual
+
+Recuerden crear su entorno virtual
+
+```
+    python -m venv .venv
+```
+
+## Instalar dependencias
+
+Recuerden instalar dependencias
+
+```
+    pip install google-genai
+    pip install python-dotenv
+    pip install pillow
+    pip install python-magic
+```
+
+## Ejecutar pruebas
+
+Para ejecutar las pruebas deben estar en el repositorio raiz y ejecutar lo siguiente:
+
+```
+     python -m unittest tests/TestAI.py
+```
