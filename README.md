@@ -27,6 +27,8 @@ Recuerden instalar dependencias
 ```
     pip install google-genai
     pip install python-dotenv
+    pip install pillow
+    pip install python-magic
 ```
 
 ## Ejecutar pruebas
