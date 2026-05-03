@@ -8,3 +8,5 @@ sounddevice # dispositivo de audio
 soundfile # guarda la grabación en un archivo .wav.
 SpeechRecognition # reconocimiento de voz
 numpy # librería de manejo de arrays
+pytest # correr tests
+requests
