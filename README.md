@@ -37,7 +37,7 @@ Recuerden instalar dependencias
     pip install numpy
 
 ```
-
+#GALILEA agregue las librerias que utilice 
 ## Ejecutar pruebas
 
 Para ejecutar las pruebas deben estar en el repositorio raiz y ejecutar lo siguiente:
