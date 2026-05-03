@@ -30,10 +30,6 @@ Recuerden instalar dependencias:
 
 Recuerden agregar las librerias que usen en el requirements.txt para poder ejecutar el comando anterior.
 
-# <<<<<<< HEAD
-
-> > > > > > > 9cc56df2423ef2d34b2cef671f7a5c5dab4276f1
-
 ## Ejecutar pruebas
 
 Para ejecutar las pruebas deben estar en el repositorio raiz y ejecutar lo siguiente:
@@ -49,10 +45,3 @@ Para ejecutar las pruebas deben estar en el repositorio raiz y ejecutar lo sigui
 De este url se crean una API_KEY para el tema de la ia
 
 Recuerden crearse un archivo .env y ahi colocar esa key de la manera que se muestra en el .env.example
-python -m unittest tests/TestAI.py
-python -m pytest -s tests/test_audio.py
-
-```
- python -m pytest -s tests/test_audio.py
-
-```
