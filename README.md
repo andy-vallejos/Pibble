@@ -30,10 +30,6 @@ Recuerden instalar dependencias:
 
 Recuerden agregar las librerias que usen en el requirements.txt para poder ejecutar el comando anterior.
 
-# <<<<<<< HEAD
-
-> > > > > > > 9cc56df2423ef2d34b2cef671f7a5c5dab4276f1
-
 ## Ejecutar pruebas
 
 Para ejecutar las pruebas deben estar en el repositorio raiz y ejecutar lo siguiente:
