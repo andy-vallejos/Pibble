@@ -1,8 +1,19 @@
+# Python
 __pycache__/
+*.py[cod]
+*.pyo
 *.pyc
+tests/__pycache__/
 
+# Virtual environments
 .venv/
+venv/
 
+# Environment variables
 .env
 
-app.py
+# VSCode
+.vscode/
+
+# OS
+.DS_Store
