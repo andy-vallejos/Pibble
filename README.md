@@ -29,6 +29,13 @@ Recuerden instalar dependencias
     pip install python-dotenv
     pip install pillow
     pip install python-magic
+    pip install pyttsx3
+    pip install pydub
+    pip install sounddevice
+    pip install soundfile
+    pip install SpeechRecognition
+    pip install numpy
+
 ```
 
 ## Ejecutar pruebas
@@ -37,4 +44,6 @@ Para ejecutar las pruebas deben estar en el repositorio raiz y ejecutar lo sigui
 
 ```
      python -m unittest tests/TestAI.py
+     python -m pytest -s tests/test_audio.py
+    
 ```
