@@ -4,28 +4,17 @@ import os
 import numpy as np
 import sounddevice as sd
 import soundfile as sf
-import speech_recognition as sr
 
-hablar=pyttsx3.init()
-voz=hablar.getProperty('voices')
-hablar.setProperty('voice', voz[0].id)
-reconocer=sr.Recognizer()
 
 def talk(text):
     hablar.say(text)
-    hablar.runAndWait()  
+    hablar.runAndWait() 
 
-def escuchar():
-    rec="sin_titulo"
-    try:
-        with sr.Microphone() as source:
-            print("Escuchando...")
-            pc=reconocer.listen(source)
-            rec=reconocer.recognize_google(pc, language="es-ES")
-            rec=rec.lower()
-    except:
-        pass
-    return rec
+    hablar=pyttsx3.init()
+    voz=hablar.getProperty('voices')
+    hablar.setProperty('voice', voz[0].id)
+ 
+
 
 def grabar(nombre_archivo, tiempo):
     frec=44100
