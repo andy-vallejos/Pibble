@@ -45,10 +45,3 @@ Para ejecutar las pruebas deben estar en el repositorio raiz y ejecutar lo sigui
 De este url se crean una API_KEY para el tema de la ia
 
 Recuerden crearse un archivo .env y ahi colocar esa key de la manera que se muestra en el .env.example
-python -m unittest tests/TestAI.py
-python -m pytest -s tests/test_audio.py
-
-```
- python -m pytest -s tests/test_audio.py
-
-```
