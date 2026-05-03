@@ -36,6 +36,7 @@ Para ejecutar las pruebas deben estar en el repositorio raiz y ejecutar lo sigui
 
 ```
      pytest
+     python -m pytest  #por si les da un error (aveces pasa porque el pytest lo instalan en sus sistema y trata de usar ese en lugar del de .venv)
 ```
 
 ## API_KEY
