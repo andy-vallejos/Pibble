@@ -36,5 +36,5 @@ Recuerden instalar dependencias
 Para ejecutar las pruebas deben estar en el repositorio raiz y ejecutar lo siguiente:
 
 ```
-     python -m unittest tests/TestAI.py
+     pytest
 ```
