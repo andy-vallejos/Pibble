@@ -2,5 +2,11 @@ google-genai # SDK oficial de Google
 python-dotenv # manejo de variables de entorno
 pillow  # procesamiento de imagenes
 python-magic # identificador de contenido
+pyttsx3 # texto a voz
+pydub #convierte el .wav a un .mp3
+sounddevice # dispositivo de audio
+soundfile # guarda la grabación en un archivo .wav.
+SpeechRecognition # reconocimiento de voz
+numpy # librería de manejo de arrays
 pytest # correr tests
 requests
