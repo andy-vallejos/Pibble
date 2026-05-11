@@ -1,90 +1,166 @@
 import re
-import os
-from .ia import inicializar, generar_respuesta
+from collections import Counter
+import unicodedata
 
 
-def cargar_vocabulario(ruta_archivo):
-    try:
-        if ruta_archivo and os.path.exists(ruta_archivo):
-            with open(ruta_archivo, 'r', encoding='utf-8') as archivo:
-                return {linea.strip().lower() for linea in archivo if linea.strip()}
-    except Exception:
-        pass
-    return {"proyecto", "clase", "sistema", "informática", "universidad"}
+def esta_vacio(texto):
+    return len(texto.strip()) == 0
 
 
-def calcular_diferencia_letras(palabra_a, palabra_b):
-    if len(palabra_a) < len(palabra_b):
-        return calcular_diferencia_letras(palabra_b, palabra_a)
-    if len(palabra_b) == 0:
-        return len(palabra_a)
-
-    fila_anterior = range(len(palabra_b) + 1)
-    for i, letra_a in enumerate(palabra_a):
-        fila_actual = [i + 1]
-        for j, letra_b in enumerate(palabra_b):
-            sustitucion = fila_anterior[j] + (letra_a != letra_b)
-            fila_actual.append(
-                min(fila_anterior[j+1] + 1, fila_actual[j] + 1, sustitucion))
-        fila_anterior = fila_actual
-    return fila_anterior[-1]
+def tiene_numeros(texto):
+    return bool(re.search(r"\d", texto))
 
 
-def corregir_palabra_local(palabra, diccionario, nombres_propios):
-    palabra_limpia = palabra.lower().strip(",.?!")
-
-    for nombre in nombres_propios:
-        if palabra_limpia == nombre.lower():
-            return nombre
-
-    if palabra_limpia in diccionario:
-        return palabra_limpia
-
-    if len(palabra_limpia) > 3:
-        for palabra_correcta in diccionario:
-            if palabra_correcta.startswith(palabra_limpia[0]):
-                if calcular_diferencia_letras(palabra_limpia, palabra_correcta) == 1:
-                    return palabra_correcta
-
-    return palabra_limpia
+def tiene_caracteres_especiales(texto):
+    return bool(re.search(r"[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]", texto))
 
 
-def ejecutar_limpieza_hibrida(ruta_txt, nombres, sonidos):
-    if not os.path.exists(ruta_txt):
-        return None
+def es_solo_letras(texto):
+    return bool(re.fullmatch(r"[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+", texto))
 
-    cliente, modelo = inicializar()
-    diccionario = cargar_vocabulario("diccionario.txt")
 
-    with open(ruta_txt, 'r', encoding='utf-8') as archivo:
-        lineas = archivo.readlines()
+def tiene_mayusculas(texto):
+    return bool(re.search(r"[A-ZÁÉÍÓÚÑ]", texto))
 
-    contenido_final = []
 
-    for linea in lineas:
-        linea_previa = linea
-        for sonido in sonidos:
-            linea_previa = re.sub(
-                sonido, '', linea_previa, flags=re.IGNORECASE)
+def tiene_minusculas(texto):
+    return bool(re.search(r"[a-záéíóúñ]", texto))
 
-        palabras = linea_previa.split()
-        palabras_corregidas = [corregir_palabra_local(
-            p, diccionario, nombres) for p in palabras]
-        texto_pre_pulido = " ".join(palabras_corregidas)
 
-        if len(texto_pre_pulido.strip()) > 0:
-            prompt = f"""Actúa como corrector gramatical técnico. 
-             Corrige puntuación y coherencia del siguiente texto derivado de audio.
-             No añadas explicaciones, solo devuelve el texto corregido:  {texto_pre_pulido}"""
-            resultado_optimo = generar_respuesta(
-                cliente, modelo, prompt)
-            oracion = resultado_optimo["texto"].capitalize()
-            if not oracion.endswith(('.', '!', '?')):
-                oracion += "."
-            contenido_final.append(oracion)
+def contar_palabras(texto):
+    return len(texto.split())
 
-    ruta_salida = ruta_txt.replace(".txt", "_optimo.txt")
-    with open(ruta_salida, 'w', encoding='utf-8') as archivo_final:
-        archivo_final.write("\n".join(contenido_final))
 
-    return ruta_salida
+def contar_oraciones(texto):
+    return len(re.findall(r"[.!?]+", texto))
+
+
+def contar_caracteres(texto):
+    return len(texto)
+
+
+def empieza_en_mayuscula(texto):
+    texto = texto.strip()
+    return texto[0].isupper() if texto else False
+
+
+def termina_con_puntuacion(texto):
+    return bool(re.search(r"[.!?]$", texto.strip()))
+
+
+def doble_espaciado(texto):
+    return "  " in texto
+
+
+def palabras_repetidas(texto):
+    return bool(re.search(r"\b(\w+)\s+\1\b", texto, re.IGNORECASE))
+
+
+def verificar_estructura_basica(texto):
+    errors = []
+
+    if not empieza_en_mayuscula(texto):
+        errors.append("El textoo no comienza con mayúscula")
+
+    if not termina_con_puntuacion(texto):
+        errors.append("El textoo no termina con puntuación")
+
+    if doble_espaciado(texto):
+        errors.append("El textoo tiene espacios dobles")
+
+    if palabras_repetidas(texto):
+        errors.append("El textoo tiene palabras repetidas")
+
+    return {
+        "valido": len(errors) == 0,
+        "errores": errors
+    }
+
+
+def buscar_email(texto):
+    return re.findall(r"[\w\.-]+@[\w\.-]+\.\w+", texto)
+
+
+def buscar_url(texto):
+    return re.findall(r"https?://[^\s]+", texto)
+
+
+def buscar_numero_celular(texto):
+    return re.findall(r"\+?\d[\d\s-]{7,}\d", texto)
+
+
+def buscar_fechas(texto):
+    return re.findall(r"\b\d{1,2}/\d{1,2}/\d{2,4}\b", texto)
+
+
+def remover_espacios_extra(texto):
+    return re.sub(r"\s+", " ", texto).strip()
+
+
+def remover_caracteres_especiales(texto):
+    return re.sub(r"[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]", "", texto)
+
+
+def normalizar_texto(texto):
+    texto = texto.lower()
+    texto = unicodedata.normalize("NFD", texto)
+    texto = texto.encode("ascii", "ignore").decode("utf-8")
+    texto = remover_espacios_extra(texto)
+
+    return texto
+
+
+def tokenizar_palabras(texto):
+    return re.findall(r"\b\w+\b", texto)
+
+
+def tokenizar_oraciones(texto):
+    return re.split(r"(?<=[.!?])\s+", texto.strip())
+
+
+def obtener_palabras_mas_comunes(texto, top=5):
+    palabras = tokenizar_palabras(normalizar_texto(texto))
+
+    contador = Counter(palabras)
+
+    return contador.most_common(top)
+
+
+def riqueza_lexica(texto):
+    palabras = tokenizar_palabras(normalizar_texto(texto))
+
+    if not palabras:
+        return 0
+
+    palabras_unicas = set(palabras)
+
+    return len(palabras_unicas) / len(palabras)
+
+
+def puntaje_legibilidad(texto):
+    palabras = contar_palabras(texto)
+    oraciones = contar_oraciones(texto)
+
+    if oraciones == 0:
+        return 0
+
+    return palabras / oraciones
+
+
+def validar(texto, reglas):
+    errors = []
+
+    for regla in reglas:
+        resultado = regla(texto)
+
+        if resultado is False:
+            errors.append(regla.__name__)
+
+    return {
+        "valid": len(errors) == 0,
+        "errores": errors
+    }
+
+
+def coincide_regla(texto, patron):
+    return bool(re.search(patron, texto))
