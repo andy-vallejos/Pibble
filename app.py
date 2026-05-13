@@ -104,9 +104,7 @@ respuesta = generar_respuesta(
     modelo,
     f"""
     Analiza el siguiente texto:
-
     {texto}
-
     Resume su contenido.
     """
 )
@@ -133,9 +131,7 @@ print()
 
 print("=== VOZ A TEXTO ===")
 
-hablar(
-    "Habla ahora y presiona enter para terminar"
-)
+hablar("Habla ahora y presiona enter para terminar.")
 
 texto_voz = reconocer()
 
