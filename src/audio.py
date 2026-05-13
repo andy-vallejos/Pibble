@@ -36,59 +36,55 @@ def reconocer():
     if not hay_microfono():
         return "No hay micrófono conectado"
 
-    reconocedor = sr.Recognizer()
+    frecuencia = 44100
+    canales = 1
 
-    try:
-        with sr.Microphone() as source:
-
-            print("Habla ahora...")
-            print("Presiona Ctrl+C para finalizar")
-
-            reconocedor.adjust_for_ambient_noise(
-                source,
-                duration=1
-            )
-
-            audio_data = []
-
-            while True:
-                try:
-                    audio = reconocedor.listen(
-                        source,
-                        timeout=2,
-                        phrase_time_limit=5
-                    )
-
-                    audio_data.append(audio)
-
-                except sr.WaitTimeoutError:
-                    continue
-
-    except KeyboardInterrupt:
-        print("\nFinalizando grabación...")
-
-    except Exception as e:
-        return f"Error con micrófono: {e}"
-
-    if not audio_data:
-        return "No se capturó audio"
+    frames = []
 
     try:
 
-        raw_data = b"".join(
-            [a.get_raw_data() for a in audio_data]
+        def callback(indata, frames_count, time, status):
+            if status:
+                print(status)
+
+            frames.append(indata.copy())
+
+        print("Habla ahora...")
+        print("Presiona ENTER para finalizar\n")
+
+        with sd.InputStream(
+            samplerate=frecuencia,
+            channels=canales,
+            dtype='int16',
+            callback=callback
+        ):
+
+            input()
+
+        if not frames:
+            return "No se capturó audio"
+
+        grabacion = np.concatenate(frames, axis=0)
+
+        archivo_temp = "temp_audio.wav"
+
+        sf.write(
+            archivo_temp,
+            grabacion,
+            frecuencia
         )
 
-        audio_completo = sr.AudioData(
-            raw_data,
-            audio_data[0].sample_rate,
-            audio_data[0].sample_width
-        )
+        reconocedor = sr.Recognizer()
+
+        with sr.AudioFile(archivo_temp) as source:
+            audio = reconocedor.record(source)
 
         texto = reconocedor.recognize_google(
-            audio_completo,
+            audio,
             language="es-ES"
         )
+
+        os.remove(archivo_temp)
 
         return texto
 
