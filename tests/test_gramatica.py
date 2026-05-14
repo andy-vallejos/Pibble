@@ -172,7 +172,7 @@ def test_validar_valido():
         [regla_con_numero, regla_mayuscula]
     )
 
-    assert resultado["valid"] is True
+    assert resultado["valido"] is True
 
 
 def test_validar_invalido():
@@ -181,7 +181,7 @@ def test_validar_invalido():
         [regla_con_numero, regla_mayuscula]
     )
 
-    assert resultado["valid"] is False
+    assert resultado["valido"] is False
     assert len(resultado["errores"]) == 2
 
 
