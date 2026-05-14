@@ -7,13 +7,18 @@ import speech_recognition as sr
 from pydub import AudioSegment
 
 engine = pyttsx3.init()
+voices = engine.getProperty('voices')
+for voice in voices:
+    if "spanish" in voice.name.lower() or "es-ES" in voice.id:
+        engine.setProperty('voice', voice.id)
+        break
 
 
 def hablar(texto):
     try:
+        engine.setProperty('rate', 150)
         engine.say(texto)
         engine.runAndWait()
-
     except Exception as e:
         print(f"[ERROR TTS]: {e}")
 
