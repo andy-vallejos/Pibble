@@ -6,7 +6,10 @@ texto = """
 Hola hola mundo.
 Mi correo es andyvallejosgb@gmail.com
 Visita https://google.com
+Tengo 22
 """
+
+print(texto)
 
 print("=== ANALISIS DE TEXTO ===")
 
@@ -63,16 +66,38 @@ print(puntaje_legibilidad(texto))
 
 print()
 
-print("=== VALIDACION ===")
+print("Validacion con reglas")
 
-reglas = [
-    tiene_mayusculas,
-    termina_con_puntuacion
-]
-
-resultado_validacion = validar(texto, reglas)
+resultado_validacion = validar(texto, [
+    empieza_en_mayuscula,
+    termina_con_puntuacion,
+    tiene_minusculas
+])
 
 print(resultado_validacion)
+
+print()
+
+
+print("=== Extraccion con reglas ===")
+
+resultado_extraccion = extraer(texto, [
+    buscar_email,
+    buscar_url,
+    buscar_numero_celular
+])
+
+print(resultado_extraccion)
+
+print()
+print("=== Extraccion con IA ===")
+
+resultado_ia = extraer_ia(
+    texto,
+    "correos electrónicos y números telefónicos"
+)
+
+print(resultado_ia)
 
 print()
 
@@ -102,11 +127,8 @@ cliente, modelo = inicializar()
 respuesta = generar_respuesta(
     cliente,
     modelo,
-    f"""
-    Analiza el siguiente texto:
-    {texto}
-    Resume su contenido.
-    """
+    "Que se ve en la imagen",
+    ["https://imgs.search.brave.com/2fGJ6LnNalx0rWaCFfhzvnRxWVhEpFdBax1iW_i5JFM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA2Lzg5LzM5LzAx/LzM2MF9GXzY4OTM5/MDExMV9qRjRqVXdx/UG5VUDNscEhlRE8y/aXRWa1NydEJ4WXVv/di5qcGc"]
 )
 
 print("Estado:")

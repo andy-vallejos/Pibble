@@ -1,6 +1,7 @@
 import re
 from collections import Counter
 import unicodedata
+from .ia import inicializar, generar_respuesta
 
 
 def esta_vacio(texto):
@@ -157,9 +158,36 @@ def validar(texto, reglas):
             errors.append(regla.__name__)
 
     return {
-        "valid": len(errors) == 0,
+        "valido": len(errors) == 0,
         "errores": errors
     }
+
+
+def extraer(texto, reglas):
+    resultados = []
+
+    for regla in reglas:
+        resultados.extend(regla(texto))
+
+    return resultados
+
+
+def extraer_ia(texto, instruccion):
+    cliente, modelo = inicializar()
+
+    prompt = f"""
+    Extrae del siguiente texto únicamente:
+    {instruccion}
+
+    Texto:
+    {texto}
+
+    Devuelve los resultados separados con un espacio
+    """
+
+    respuesta = generar_respuesta(cliente, modelo, prompt)
+
+    return respuesta["texto"]
 
 
 def coincide_regla(texto, patron):
