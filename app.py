@@ -102,11 +102,8 @@ cliente, modelo = inicializar()
 respuesta = generar_respuesta(
     cliente,
     modelo,
-    f"""
-    Analiza el siguiente texto:
-    {texto}
-    Resume su contenido.
-    """
+    "Que es esta imagen",
+    ["https://unsplash.com/s/photos/hachiko"]
 )
 
 print("Estado:")

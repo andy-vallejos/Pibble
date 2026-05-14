@@ -1,47 +1,160 @@
-# libreria-python
+# Pibble: Librería Multimodal de Audio, Gramatica e IA
 
-## Instalacion
+## Integrantes
 
-git clone <https://github.com/andy-vallejos/libreria-python.git>
+- Fausto Jafeth Vilches Mendieta
+- Andy Gildo Vallejos Bascope
+- Galilea Alissandre Hinojosa Cusicanqui
 
-## Cambiar rama
+---
 
-Recuerden cambiar su rama de trabajo
+# Estado del proyecto
+
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![Tests](https://img.shields.io/badge/Tests-pytest-green)
+![IA](https://img.shields.io/badge/AI-Gemini-orange)
+![Status](https://img.shields.io/badge/Status-Active-success)
+
+---
+
+# Estructura del proyecto
+
+├── 📁 src
+│ ├── 🐍 init.py
+│ ├── 🐍 audio.py
+│ ├── 🐍 gramatica.py
+│ └── 🐍 ia.py
+├── 📁 tests
+│ ├── 🐍 test_audio.py
+│ ├── 🐍 test_gramatica.py
+│ └── 🐍 test_ia.py
+├── ⚙️ .env.example
+├── ⚙️ .gitignore
+├── 📝 README.md
+├── 📝 README2.md
+├── 🐍 app.py
+├── ⚙️ pytest.ini
+└── 📄 requirements.txt
+
+---
+
+# 🎯 Descripción general
+
+Este proyecto es una **librería modular en Python** que integra procesamiento de:
+
+- Audio (voz a texto y texto a voz)
+- Texto (análisis lingüístico y validación)
+- Inteligencia Artificial (Google Gemini multimodal)
+
+---
+
+# Módulo de Audio (`src/audio.py`)
+
+## Funcionalidades
+
+- Detección de micrófono
+- Grabación en tiempo real
+- Reconocimiento de voz (Speech-to-Text)
+- Síntesis de voz (Text-to-Speech)
+- Exportación a MP3
+
+## Tecnologías
+
+- `sounddevice`
+- `speech_recognition`
+- `pyttsx3`
+- `pydub`
+
+---
+
+# Módulo de Gramática (`src/gramatica.py`)
+
+## Funcionalidades
+
+- Limpieza y normalización de texto
+- Conteo de palabras, caracteres y oraciones
+- Validación gramatical básica
+- Detección de emails, URLs, teléfonos y fechas
+- Tokenización de texto
+- Métricas de legibilidad y riqueza léxica
+
+## Capacidades
+
+- Expresiones regulares avanzadas
+- Análisis estructural de texto
+- Validación dinámica de reglas
+
+---
+
+# Módulo de IA (`src/ia.py`)
+
+## Funcionalidades
+
+- Prompts de texto
+- Análisis de imágenes
+- Análisis de audio
+- Archivos locales o URLs
+- Respuestas con Google Gemini
+
+## Características
+
+- Multimodal (texto + imagen + audio)
+- Detección automática de MIME type
+- Manejo de errores robusto
+
+---
+
+# Instalación
+
+## Clonar repositorio
+
+```bash
+git clone https://github.com/andy-vallejos/pibble.git
+cd pibble
+```
+
+## Crear entorno virtual
 
 ```
-    git switch -c "aqui-ponen-el-nombre-de-su-rama"
+python -m venv .venv
 ```
 
-## Entorno virtual
-
-Recuerden crear su entorno virtual
+### Activar
 
 ```
-    python -m venv .venv
+.venv\Scripts\activate
 ```
 
 ## Instalar dependencias
 
-Recuerden instalar dependencias:
-
 ```
-    pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
-Recuerden agregar las librerias que usen en el requirements.txt para poder ejecutar el comando anterior.
+## Variables de entorno
 
-## Ejecutar pruebas
-
-Para ejecutar las pruebas deben estar en el repositorio raiz y ejecutar lo siguiente:
+Crear archivo .env:
 
 ```
-     pytest
-     python -m pytest  #por si les da un error (aveces pasa porque el pytest lo instalan en sus sistema y trata de usar ese en lugar del de .venv)
+GOOGLE_API_KEY=tu_api_key_aqui
 ```
 
-## API_KEY
+### Obtener API key
 
-<https://aistudio.google.com/app/api-keys?hl=es-419&project=gen-lang-client-0705034784>
-De este url se crean una API_KEY para el tema de la ia
+<https://aistudio.google.com/app/api-keys>
 
-Recuerden crearse un archivo .env y ahi colocar esa key de la manera que se muestra en el .env.example
+# Testing
+
+Este proyecto utiliza pytest.
+
+## Ejecutar tests
+
+```
+pytest
+```
+
+Si hay problemas de entorno:
+
+```
+python -m pytest
+```
