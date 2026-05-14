@@ -8,17 +8,9 @@
 
 ---
 
-# Estado del proyecto
-
-![Python](https://img.shields.io/badge/Python-3.10+-blue)
-![Tests](https://img.shields.io/badge/Tests-pytest-green)
-![IA](https://img.shields.io/badge/AI-Gemini-orange)
-![Status](https://img.shields.io/badge/Status-Active-success)
-
----
-
 # Estructura del proyecto
 
+```
 ├── 📁 src
 │ ├── 🐍 init.py
 │ ├── 🐍 audio.py
@@ -35,6 +27,7 @@
 ├── 🐍 app.py
 ├── ⚙️ pytest.ini
 └── 📄 requirements.txt
+```
 
 ---
 
@@ -108,7 +101,7 @@ Este proyecto es una **librería modular en Python** que integra procesamiento d
 
 ## Clonar repositorio
 
-```bash
+```
 git clone https://github.com/andy-vallejos/pibble.git
 cd pibble
 ```
@@ -158,3 +151,5 @@ Si hay problemas de entorno:
 ```
 python -m pytest
 ```
+
+# Ejemplo de uso (`app.py`)
